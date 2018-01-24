@@ -26,11 +26,11 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="./index.html">Home</a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="./masternode.html">Masternodes <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="./index.html">Proposals</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Masternodes <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="http://explore.test60x.energi.network">Explorer</a>
@@ -75,6 +75,7 @@
     $('#mn').DataTable( {
         "processing": true,
         "serverSide": true,
+        "paging": false,
         "ajax": "http://localhost:3000/mn/list"
     } ), 500});
       });

@@ -27,7 +27,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="./index.html">Proposals <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./masternode.html">Masternodes</a>
@@ -45,7 +45,7 @@
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style="margin-left: 10%">
 
           <section class="row text-center placeholders">
-            <div class="col-6 col-sm-3 placeholder">
+            <div class="col-6 col-sm-3 placeholder" style="margin-left: 10%">
               <h1 id="lastsb"></h1>
               <h4>Last Super Block</h4>
             </div>
@@ -68,13 +68,14 @@
             <table class="table table-striped" id="proposals">
               <thead>
                 <tr>
-                  <th style='max-width:10%'>Proposal Code (Hex)</th>
+                  <th>Proposal Name</th>
+                  <th>Description URL</th>
                   <th>Creation Time</th>
-                  <th>Signing Masternode</th>
                   <th>Absolute Yes Count</th>
                   <th>Yes Count</th>
                   <th>No Count</th>
                   <th>Abstain Count</th>
+                  <th>Hash</th>
                 </tr>
               </thead>
             </table>
@@ -109,6 +110,7 @@
        $('#proposals').DataTable( {
         "processing": true,
         "serverSide": true,
+        "paging": false,
         "ajax": "http://localhost:3000/gov/list"
     } ), 500});
       }

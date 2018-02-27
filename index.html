@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../static/favicon.ico">
 
     <title>Energi Vote Tracker</title>
 
@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../static/css/dashboard.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -43,7 +44,6 @@
       <div class="row">
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style="margin-left: 10%">
-
           <section class="row text-center placeholders">
             <div class="col-6 col-sm-3 placeholder" style="margin-left: 10%">
               <h1 id="lastsb"></h1>
@@ -63,19 +63,24 @@
             </div> -->
           </section>
 
+          <section class="panel panel-default row text-center">
+          <div id="vote" style="margin-left: 10%;"></div>
+          </section>
+
           <h2>Proposals</h2>
           <div class="table-responsive">
             <table class="table table-striped" id="proposals">
               <thead>
                 <tr>
-                  <th>Proposal Name</th>
-                  <th>Description URL</th>
-                  <th>Creation Time</th>
-                  <th>Absolute Yes Count</th>
-                  <th>Yes Count</th>
-                  <th>No Count</th>
-                  <th>Abstain Count</th>
-                  <th>Hash</th>
+                  <th>Proposal</th>
+                  <th>Total Budget</th>
+                  <th>Total Payments</th>
+                  <th>Payments Start</th>
+                  <th>Payments End</th>
+                  <th>Yes Votes</th>
+                  <th>No Votes</th>
+                  <th>Abstain Votes</th>
+                  <th>Vote</th>
                 </tr>
               </thead>
             </table>
@@ -89,10 +94,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="../static/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
+    // $.fn.dataTable.ext.errMode = 'throw';
     $(document).ready(function(){
+      var table;
         setTimeout(function(){
         $.get('http://localhost:3000/gov/info', function(data, status){
-          console.log(data)
           $('#lastsb').html(data.result.lastsuperblock)
           $('#nextsb').html(data.result.nextsuperblock)
           // $('.age').html(data.age)
@@ -100,24 +106,36 @@
 
         setTimeout(function(){
         $.get('http://localhost:3000/block/count', function(data, status){
-          console.log(data)
           $('#currentb').html(data.result)
-          // $('#nextsb').html(data.result.nextsuperblock)
-          // $('.age').html(data.age)
         }), 500});
 
        setTimeout(function(){
-       $('#proposals').DataTable( {
+        table = $('#proposals').DataTable( {
         "processing": true,
         "serverSide": true,
-        "paging": false,
-        "ajax": "http://localhost:3000/gov/list"
+        "searching": false,
+        "ajax": "http://localhost:3000/gov/list",
+        "columnDefs": [ {
+        "targets": -1,
+        "data": null,
+        "defaultContent": "<button id='btn'>Vote</button>"
+    } ]
     } ), 500});
+
+    $('#proposals').on( 'click', '#btn', function () {
+    var data = table.row( $(this).parents('tr') ).data();
+    $('#vote').html("<b>Please copy the following into the debug console of your local wallet to vote for the proposal:</b><br> <p style=' font-family: Consolas, monaco, monospace;'>gobject vote-many " + data[8] + " funding [vote]</p><br>"+"Where <b>vote</b> options are: yes, no and abstain<br><br>")
+    } );
       }
     );
+
+
     </script>
     <link rel="stylesheet" type="text/css" href="static/DataTables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/jquery.dataTables.min.css"/>
     <script type="text/javascript" src="static/DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

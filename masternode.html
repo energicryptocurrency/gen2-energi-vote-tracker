@@ -49,14 +49,13 @@
             <table id="mn" class="table table-striped">
               <thead>
                 <tr>
+                  <th>IP</th>
                   <th>Status</th>
                   <th>Protocol</th>
-                  <th>Payee</th>
                   <th>Last Seen</th>
                   <th>Active Secs</th>
                   <th>Time Since Last Paid</th>
                   <th>Last Paid Block</th> 
-                  <th>IP</th>
                 </tr>
               </thead>
             </table>
@@ -76,7 +75,10 @@
     $('#mn').DataTable( {
         "processing": true,
         "serverSide": true,
-        "paging": false,
+        "searching": false,
+        "scrollY":   "600px",
+        "scrollCollapse": true,
+        "paging":         false,
         "ajax": "http://localhost:3000/mn/list"
     } ), 500});
       });

@@ -53,8 +53,8 @@
                   <th>Status</th>
                   <th>Protocol</th>
                   <th>Last Seen</th>
-                  <th>Active Secs</th>
-                  <th>Time Since Last Paid</th>
+                  <th>Active Since</th>
+                  <th>Last Paid</th>
                   <th>Last Paid Block</th> 
                 </tr>
               </thead>
@@ -70,16 +70,18 @@
     <script type="text/javascript" src="static/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
     // $.fn.dataTable.ext.errMode = 'throw';
+    //TODO: might want to change this
+    var url = "http://localhost:3000"
     $(document).ready(function(){
         setTimeout(function(){
     $('#mn').DataTable( {
         "processing": true,
         "serverSide": true,
         "searching": false,
-        "scrollY":   "600px",
         "scrollCollapse": true,
-        "paging":         false,
-        "ajax": "http://localhost:3000/mn/list"
+        "paging":         true,
+        "sPaginationType":"full",
+        "ajax": url + "/mn/list"
     } ), 500});
       });
 

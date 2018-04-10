@@ -95,17 +95,19 @@
     <script type="text/javascript" src="../static/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
     // $.fn.dataTable.ext.errMode = 'throw';
+    //TODO: might want to change this
+    var url = "http://localhost:3000"
     $(document).ready(function(){
       var table;
         setTimeout(function(){
-        $.get('http://localhost:3000/gov/info', function(data, status){
+        $.get(url + '/gov/info', function(data, status){
           $('#lastsb').html(data.result.lastsuperblock)
           $('#nextsb').html(data.result.nextsuperblock)
           // $('.age').html(data.age)
         }), 500});
 
         setTimeout(function(){
-        $.get('http://localhost:3000/block/count', function(data, status){
+        $.get(url + '/block/count', function(data, status){
           $('#currentb').html(data.result)
         }), 500});
 
@@ -114,10 +116,9 @@
         "processing": true,
         "serverSide": true,
         "searching": false,
-        "scrollY":   "600px",
-        "scrollCollapse": true,
-        "paging":         false,
-        "ajax": "http://localhost:3000/gov/list",
+        "paging":         true,
+        "sPaginationType":"full",
+        "ajax": url + "/gov/list",
         "columnDefs": [ {
         "targets": -1,
         "data": null,
